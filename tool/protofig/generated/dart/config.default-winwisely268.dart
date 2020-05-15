@@ -1,7 +1,8 @@
 import 'dart:convert';
 import 'baseproto.pb.dart';	
 import 'package:fixnum/fixnum.dart';	
-import 'config.pb.dart';	
+import 'config.pb.dart';
+import 'settings.pb.dart';	
 	
 class ConfigDefConfig {
   final List<ConfigAppConfig> appConfig;
@@ -96,67 +97,126 @@ class ConfigAppConfig {
 
  extension ConfigMinioComponent on MinioComponent {
   ConfigAppConfig toAppConfig() {
-	ConfigAppConfig component = ConfigAppConfig.fromEmpty();	
-	component.componentName = "minioComponent";
-	component.config["minioAccesskey"] = this.minioAccesskey.toDynamic(); 
-	component.config["minioSecretkey"] = this.minioSecretkey.toDynamic(); 
-	
-	return component;
+	  ConfigAppConfig component = ConfigAppConfig.fromEmpty();	
+	  component.componentName = "minioComponent";
+	  component.config["minioAccesskey"] = this.minioAccesskey.toDynamic(); 
+	  component.config["minioSecretkey"] = this.minioSecretkey.toDynamic(); 
+	  
+	  return component;
   }
+	
+  ProtoModuleConfig toConfigProtoModuleConfig() {
+	  ProtoModuleConfig x = ProtoModuleConfig();
+	  x.moduleId = "MinioComponent";
+	  x.configs["minioAccesskey"] = this.minioAccesskey;
+	  x.configs["minioSecretkey"] = this.minioSecretkey;
+	  
+	  return x;
+  }	
 }
  extension ConfigMaintemplateComponent on MaintemplateComponent {
   ConfigAppConfig toAppConfig() {
-	ConfigAppConfig component = ConfigAppConfig.fromEmpty();	
-	component.componentName = "maintemplateComponent";
-	component.config["minioAccesskey"] = this.minioAccesskey.toDynamic(); 
-	component.config["minioSecretkey"] = this.minioSecretkey.toDynamic(); 
-	component.config["minioLocation"] = this.minioLocation.toDynamic(); 
-	component.config["minioTimeout"] = this.minioTimeout.toDynamic(); 
-	component.config["minioSsl"] = this.minioSsl.toDynamic(); 
-	component.config["minioEnckey"] = this.minioEnckey.toDynamic(); 
-	component.config["minioEndpoint"] = this.minioEndpoint.toDynamic(); 
-	
-	return component;
+	  ConfigAppConfig component = ConfigAppConfig.fromEmpty();	
+	  component.componentName = "maintemplateComponent";
+	  component.config["minioAccesskey"] = this.minioAccesskey.toDynamic(); 
+	  component.config["minioSecretkey"] = this.minioSecretkey.toDynamic(); 
+	  component.config["minioLocation"] = this.minioLocation.toDynamic(); 
+	  component.config["minioTimeout"] = this.minioTimeout.toDynamic(); 
+	  component.config["minioSsl"] = this.minioSsl.toDynamic(); 
+	  component.config["minioEnckey"] = this.minioEnckey.toDynamic(); 
+	  component.config["minioEndpoint"] = this.minioEndpoint.toDynamic(); 
+	  
+	  return component;
   }
+	
+  ProtoModuleConfig toConfigProtoModuleConfig() {
+	  ProtoModuleConfig x = ProtoModuleConfig();
+	  x.moduleId = "MaintemplateComponent";
+	  x.configs["minioAccesskey"] = this.minioAccesskey;
+	  x.configs["minioSecretkey"] = this.minioSecretkey;
+	  x.configs["minioLocation"] = this.minioLocation;
+	  x.configs["minioTimeout"] = this.minioTimeout;
+	  x.configs["minioSsl"] = this.minioSsl;
+	  x.configs["minioEnckey"] = this.minioEnckey;
+	  x.configs["minioEndpoint"] = this.minioEndpoint;
+	  
+	  return x;
+  }	
 }
  extension ConfigGcpComponent on GcpComponent {
   ConfigAppConfig toAppConfig() {
-	ConfigAppConfig component = ConfigAppConfig.fromEmpty();	
-	component.componentName = "gcpComponent";
-	component.config["gcpUser"] = this.gcpUser.toDynamic(); 
-	component.config["gcpProject"] = this.gcpProject.toDynamic(); 
-	component.config["gkeCluster"] = this.gkeCluster.toDynamic(); 
-	component.config["gkeZone"] = this.gkeZone.toDynamic(); 
-	component.config["gkeEmail"] = this.gkeEmail.toDynamic(); 
-	
-	return component;
+	  ConfigAppConfig component = ConfigAppConfig.fromEmpty();	
+	  component.componentName = "gcpComponent";
+	  component.config["gcpUser"] = this.gcpUser.toDynamic(); 
+	  component.config["gcpProject"] = this.gcpProject.toDynamic(); 
+	  component.config["gkeCluster"] = this.gkeCluster.toDynamic(); 
+	  component.config["gkeZone"] = this.gkeZone.toDynamic(); 
+	  component.config["gkeEmail"] = this.gkeEmail.toDynamic(); 
+	  
+	  return component;
   }
+	
+  ProtoModuleConfig toConfigProtoModuleConfig() {
+	  ProtoModuleConfig x = ProtoModuleConfig();
+	  x.moduleId = "GcpComponent";
+	  x.configs["gcpUser"] = this.gcpUser;
+	  x.configs["gcpProject"] = this.gcpProject;
+	  x.configs["gkeCluster"] = this.gkeCluster;
+	  x.configs["gkeZone"] = this.gkeZone;
+	  x.configs["gkeEmail"] = this.gkeEmail;
+	  
+	  return x;
+  }	
 }
  extension ConfigJwtComponent on JwtComponent {
   ConfigAppConfig toAppConfig() {
-	ConfigAppConfig component = ConfigAppConfig.fromEmpty();	
-	component.componentName = "jwtComponent";
-	component.config["privateKey"] = this.privateKey.toDynamic(); 
-	component.config["publicKey"] = this.publicKey.toDynamic(); 
-	
-	return component;
+	  ConfigAppConfig component = ConfigAppConfig.fromEmpty();	
+	  component.componentName = "jwtComponent";
+	  component.config["privateKey"] = this.privateKey.toDynamic(); 
+	  component.config["publicKey"] = this.publicKey.toDynamic(); 
+	  
+	  return component;
   }
+	
+  ProtoModuleConfig toConfigProtoModuleConfig() {
+	  ProtoModuleConfig x = ProtoModuleConfig();
+	  x.moduleId = "JwtComponent";
+	  x.configs["privateKey"] = this.privateKey;
+	  x.configs["publicKey"] = this.publicKey;
+	  
+	  return x;
+  }	
 }
  extension ConfigWorkflowComponent on WorkflowComponent {
   ConfigAppConfig toAppConfig() {
-	ConfigAppConfig component = ConfigAppConfig.fromEmpty();	
-	component.componentName = "workflowComponent";
-	component.config["githubSha"] = this.githubSha.toDynamic(); 
-	component.config["githubRef"] = this.githubRef.toDynamic(); 
-	component.config["project"] = this.project.toDynamic(); 
-	component.config["registryHostname"] = this.registryHostname.toDynamic(); 
-	component.config["url"] = this.url.toDynamic(); 
-	component.config["locales"] = this.locales.toDynamic(); 
-	component.config["flutterChannel"] = this.flutterChannel.toDynamic(); 
-	component.config["releaseChannel"] = this.releaseChannel.toDynamic(); 
-	
-	return component;
+	  ConfigAppConfig component = ConfigAppConfig.fromEmpty();	
+	  component.componentName = "workflowComponent";
+	  component.config["githubSha"] = this.githubSha.toDynamic(); 
+	  component.config["githubRef"] = this.githubRef.toDynamic(); 
+	  component.config["project"] = this.project.toDynamic(); 
+	  component.config["registryHostname"] = this.registryHostname.toDynamic(); 
+	  component.config["url"] = this.url.toDynamic(); 
+	  component.config["locales"] = this.locales.toDynamic(); 
+	  component.config["flutterChannel"] = this.flutterChannel.toDynamic(); 
+	  component.config["releaseChannel"] = this.releaseChannel.toDynamic(); 
+	  
+	  return component;
   }
+	
+  ProtoModuleConfig toConfigProtoModuleConfig() {
+	  ProtoModuleConfig x = ProtoModuleConfig();
+	  x.moduleId = "WorkflowComponent";
+	  x.configs["githubSha"] = this.githubSha;
+	  x.configs["githubRef"] = this.githubRef;
+	  x.configs["project"] = this.project;
+	  x.configs["registryHostname"] = this.registryHostname;
+	  x.configs["url"] = this.url;
+	  x.configs["locales"] = this.locales;
+	  x.configs["flutterChannel"] = this.flutterChannel;
+	  x.configs["releaseChannel"] = this.releaseChannel;
+	  
+	  return x;
+  }	
 }
 	
 	

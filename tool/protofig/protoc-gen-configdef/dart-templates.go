@@ -4,7 +4,8 @@ var (
 	dartTpl = `import 'dart:convert';
 import 'baseproto.pb.dart';	
 import 'package:fixnum/fixnum.dart';	
-import '{{ .Name }}.pb.dart';	
+import '{{ .Name }}.pb.dart';
+import 'settings.pb.dart';	
 	
 class {{ .Name | toPascalCase }}DefConfig {
   final List<{{ .Name | toPascalCase }}AppConfig> appConfig;
@@ -56,12 +57,20 @@ class {{ .Name | toPascalCase }}AppConfig {
 
 {{ range .Messages }} extension {{ .Prefix | toPascalCase }}{{ .Name }} on {{ .Name }} {
   {{ .Prefix | toPascalCase }}AppConfig toAppConfig() {
-	{{ .Prefix | toPascalCase }}AppConfig component = {{ .Prefix | toPascalCase }}AppConfig.fromEmpty();	
-	component.componentName = "{{ .Name | toCamel }}";
-	{{ range .Fields}}component.config["{{ .JsonKey }}"] = this.{{ .JsonKey }}.toDynamic(); 
-	{{ end }}
-	return component;
+	  {{ .Prefix | toPascalCase }}AppConfig component = {{ .Prefix | toPascalCase }}AppConfig.fromEmpty();	
+	  component.componentName = "{{ .Name | toCamel }}";
+	  {{ range .Fields}}component.config["{{ .JsonKey }}"] = this.{{ .JsonKey }}.toDynamic(); 
+	  {{ end }}
+	  return component;
   }
+	
+  ProtoModuleConfig to{{ .Prefix | toPascalCase }}ProtoModuleConfig() {
+	  ProtoModuleConfig x = ProtoModuleConfig();
+	  x.moduleId = "{{ .Name }}";
+	  {{ range .Fields }}x.configs["{{ .JsonKey }}"] = this.{{ .JsonKey }};
+	  {{ end }}
+	  return x;
+  }	
 }
 {{ end }}	
 	

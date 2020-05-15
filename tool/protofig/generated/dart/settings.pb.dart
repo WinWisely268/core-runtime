@@ -13,8 +13,8 @@ import 'baseproto.pb.dart' as $0;
 
 class ProtoModuleConfig extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('ProtoModuleConfig', package: const $pb.PackageName('config'), createEmptyInstance: create)
-    ..aOS(1, 'moduleID', protoName: 'moduleID')
-    ..m<$core.String, $0.Config>(2, 'configs', entryClassName: 'ProtoModuleConfig.ConfigsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $0.Config.create, packageName: const $pb.PackageName('config'))
+    ..aOS(1, 'moduleId')
+    ..m<$core.String, $0.ConfigVal>(2, 'configs', entryClassName: 'ProtoModuleConfig.ConfigsEntry', keyFieldType: $pb.PbFieldType.OS, valueFieldType: $pb.PbFieldType.OM, valueCreator: $0.ConfigVal.create, packageName: const $pb.PackageName('config'))
     ..hasRequiredFields = false
   ;
 
@@ -34,15 +34,15 @@ class ProtoModuleConfig extends $pb.GeneratedMessage {
   static ProtoModuleConfig _defaultInstance;
 
   @$pb.TagNumber(1)
-  $core.String get moduleID => $_getSZ(0);
+  $core.String get moduleId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set moduleID($core.String v) { $_setString(0, v); }
+  set moduleId($core.String v) { $_setString(0, v); }
   @$pb.TagNumber(1)
-  $core.bool hasModuleID() => $_has(0);
+  $core.bool hasModuleId() => $_has(0);
   @$pb.TagNumber(1)
-  void clearModuleID() => clearField(1);
+  void clearModuleId() => clearField(1);
 
   @$pb.TagNumber(2)
-  $core.Map<$core.String, $0.Config> get configs => $_getMap(1);
+  $core.Map<$core.String, $0.ConfigVal> get configs => $_getMap(1);
 }
 

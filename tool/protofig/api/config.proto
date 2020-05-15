@@ -5,6 +5,7 @@ package config;
 option go_package = ".;config";
 
 import "baseproto.proto";
+import "settings.proto";
 
 message MinioComponent {
     config.ConfigVal minio_accesskey = 1; // string

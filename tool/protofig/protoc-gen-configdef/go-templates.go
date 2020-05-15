@@ -244,7 +244,31 @@ func toConfigVal(i interface{}) (cfg *ConfigVal, err error) {
 	}, nil
 }
 {{ end }}	
-		
+
+{{ range .Messages }}func (x *{{ .Name }}) ToProtoModuleConfig() *ProtoModuleConfig {
+	msc := map[string]*ConfigVal{}
+	{{ range .Fields }}msc["{{ .JsonKey }}"] = x.{{ .Key | toPascalCase }}
+	{{ end }}
+	return &ProtoModuleConfig{
+		ModuleId: "{{ .Name }}",
+		Configs: msc,
+	}
+}
+{{ end }}	
+	
+{{ range .Messages }}func (p *ProtoModuleConfig) Create{{ .Name }}() (*{{ .Name }}, error) {
+	if p.ModuleId == "{{ .Name }}" {
+	    {{ range .Fields }}{{ .JsonKey }} := p.Configs["{{ .JsonKey }}"]
+	    {{ end }}
+	    return &{{ .Name }}{
+	        {{ range .Fields }}{{ .Key | toPascalCase }}: {{ .JsonKey }},
+	        {{ end }}
+	    }, nil
+	}
+	return nil, errors.New("Module name doesn't match current message")
+}
+{{ end }}	
+	
 func {{ .Name }}ToB64(s string) string {
 	return b64.StdEncoding.EncodeToString([]byte(s))
 }

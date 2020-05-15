@@ -605,7 +605,168 @@ func (x *WorkflowComponent) ToComponent() (*Component, error) {
 	}, nil
 }
 	
-		
+
+func (x *MinioComponent) ToProtoModuleConfig() *ProtoModuleConfig {
+	msc := map[string]*ConfigVal{}
+	msc["minioAccesskey"] = x.MinioAccesskey
+	msc["minioSecretkey"] = x.MinioSecretkey
+	
+	return &ProtoModuleConfig{
+		ModuleId: "MinioComponent",
+		Configs: msc,
+	}
+}
+func (x *MaintemplateComponent) ToProtoModuleConfig() *ProtoModuleConfig {
+	msc := map[string]*ConfigVal{}
+	msc["minioAccesskey"] = x.MinioAccesskey
+	msc["minioSecretkey"] = x.MinioSecretkey
+	msc["minioLocation"] = x.MinioLocation
+	msc["minioTimeout"] = x.MinioTimeout
+	msc["minioSsl"] = x.MinioSsl
+	msc["minioEnckey"] = x.MinioEnckey
+	msc["minioEndpoint"] = x.MinioEndpoint
+	
+	return &ProtoModuleConfig{
+		ModuleId: "MaintemplateComponent",
+		Configs: msc,
+	}
+}
+func (x *GcpComponent) ToProtoModuleConfig() *ProtoModuleConfig {
+	msc := map[string]*ConfigVal{}
+	msc["gcpUser"] = x.GcpUser
+	msc["gcpProject"] = x.GcpProject
+	msc["gkeCluster"] = x.GkeCluster
+	msc["gkeZone"] = x.GkeZone
+	msc["gkeEmail"] = x.GkeEmail
+	
+	return &ProtoModuleConfig{
+		ModuleId: "GcpComponent",
+		Configs: msc,
+	}
+}
+func (x *JwtComponent) ToProtoModuleConfig() *ProtoModuleConfig {
+	msc := map[string]*ConfigVal{}
+	msc["privateKey"] = x.PrivateKey
+	msc["publicKey"] = x.PublicKey
+	
+	return &ProtoModuleConfig{
+		ModuleId: "JwtComponent",
+		Configs: msc,
+	}
+}
+func (x *WorkflowComponent) ToProtoModuleConfig() *ProtoModuleConfig {
+	msc := map[string]*ConfigVal{}
+	msc["githubSha"] = x.GithubSha
+	msc["githubRef"] = x.GithubRef
+	msc["project"] = x.Project
+	msc["registryHostname"] = x.RegistryHostname
+	msc["url"] = x.Url
+	msc["locales"] = x.Locales
+	msc["flutterChannel"] = x.FlutterChannel
+	msc["releaseChannel"] = x.ReleaseChannel
+	
+	return &ProtoModuleConfig{
+		ModuleId: "WorkflowComponent",
+		Configs: msc,
+	}
+}
+	
+	
+func (p *ProtoModuleConfig) CreateMinioComponent() (*MinioComponent, error) {
+	if p.ModuleId == "MinioComponent" {
+	    minioAccesskey := p.Configs["minioAccesskey"]
+	    minioSecretkey := p.Configs["minioSecretkey"]
+	    
+	    return &MinioComponent{
+	        MinioAccesskey: minioAccesskey,
+	        MinioSecretkey: minioSecretkey,
+	        
+	    }, nil
+	}
+	return nil, errors.New("Module name doesn't match current message")
+}
+func (p *ProtoModuleConfig) CreateMaintemplateComponent() (*MaintemplateComponent, error) {
+	if p.ModuleId == "MaintemplateComponent" {
+	    minioAccesskey := p.Configs["minioAccesskey"]
+	    minioSecretkey := p.Configs["minioSecretkey"]
+	    minioLocation := p.Configs["minioLocation"]
+	    minioTimeout := p.Configs["minioTimeout"]
+	    minioSsl := p.Configs["minioSsl"]
+	    minioEnckey := p.Configs["minioEnckey"]
+	    minioEndpoint := p.Configs["minioEndpoint"]
+	    
+	    return &MaintemplateComponent{
+	        MinioAccesskey: minioAccesskey,
+	        MinioSecretkey: minioSecretkey,
+	        MinioLocation: minioLocation,
+	        MinioTimeout: minioTimeout,
+	        MinioSsl: minioSsl,
+	        MinioEnckey: minioEnckey,
+	        MinioEndpoint: minioEndpoint,
+	        
+	    }, nil
+	}
+	return nil, errors.New("Module name doesn't match current message")
+}
+func (p *ProtoModuleConfig) CreateGcpComponent() (*GcpComponent, error) {
+	if p.ModuleId == "GcpComponent" {
+	    gcpUser := p.Configs["gcpUser"]
+	    gcpProject := p.Configs["gcpProject"]
+	    gkeCluster := p.Configs["gkeCluster"]
+	    gkeZone := p.Configs["gkeZone"]
+	    gkeEmail := p.Configs["gkeEmail"]
+	    
+	    return &GcpComponent{
+	        GcpUser: gcpUser,
+	        GcpProject: gcpProject,
+	        GkeCluster: gkeCluster,
+	        GkeZone: gkeZone,
+	        GkeEmail: gkeEmail,
+	        
+	    }, nil
+	}
+	return nil, errors.New("Module name doesn't match current message")
+}
+func (p *ProtoModuleConfig) CreateJwtComponent() (*JwtComponent, error) {
+	if p.ModuleId == "JwtComponent" {
+	    privateKey := p.Configs["privateKey"]
+	    publicKey := p.Configs["publicKey"]
+	    
+	    return &JwtComponent{
+	        PrivateKey: privateKey,
+	        PublicKey: publicKey,
+	        
+	    }, nil
+	}
+	return nil, errors.New("Module name doesn't match current message")
+}
+func (p *ProtoModuleConfig) CreateWorkflowComponent() (*WorkflowComponent, error) {
+	if p.ModuleId == "WorkflowComponent" {
+	    githubSha := p.Configs["githubSha"]
+	    githubRef := p.Configs["githubRef"]
+	    project := p.Configs["project"]
+	    registryHostname := p.Configs["registryHostname"]
+	    url := p.Configs["url"]
+	    locales := p.Configs["locales"]
+	    flutterChannel := p.Configs["flutterChannel"]
+	    releaseChannel := p.Configs["releaseChannel"]
+	    
+	    return &WorkflowComponent{
+	        GithubSha: githubSha,
+	        GithubRef: githubRef,
+	        Project: project,
+	        RegistryHostname: registryHostname,
+	        Url: url,
+	        Locales: locales,
+	        FlutterChannel: flutterChannel,
+	        ReleaseChannel: releaseChannel,
+	        
+	    }, nil
+	}
+	return nil, errors.New("Module name doesn't match current message")
+}
+	
+	
 func configToB64(s string) string {
 	return b64.StdEncoding.EncodeToString([]byte(s))
 }

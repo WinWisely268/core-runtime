@@ -6,7 +6,8 @@ option go_package = ".;config";
 
 import "baseproto.proto";
 
-message ProtoModuleConfig{
-    string moduleID = 1;
-    map<string, config.Config> configs = 2;
+message ProtoModuleConfig {
+    string module_id = 1;
+    map<string, ConfigVal> configs = 2;
 }
+

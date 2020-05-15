@@ -44,7 +44,7 @@ func (m *ProtoModuleConfig) Validate() error {
 		return nil
 	}
 
-	// no validation rules for ModuleID
+	// no validation rules for ModuleId
 
 	for key, val := range m.GetConfigs() {
 		_ = val
