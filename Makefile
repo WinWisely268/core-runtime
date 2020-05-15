@@ -6,8 +6,6 @@ include ./boilerplate/core/help.mk
 include ./boilerplate/core/go.mk
 include ./boilerplate/core/gitr.mk
 
-CUR_GIT_URL = "https://github.com/winwisely268/core-runtime"
-
 .PHONY: help
 
 ## Print all settings
@@ -38,7 +36,7 @@ this-tools-release: this-tools-build
 ## build dummy
 build-dummy:
 	@echo "building dummy"
-	@go run multibuild.go -c $(PWD)/.tmp -o $(PWD)/outputs -f $(PWD)/tool/dummy/versions.json -g $(CUR_GIT_URL)
+	go build -o dummy -v $(PWD)/tool/dummy
 
 ## clean dummy builds
 build-dummy-clean:
