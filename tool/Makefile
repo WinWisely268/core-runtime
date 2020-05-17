@@ -1,10 +1,9 @@
 # This make file uses composition to keep things KISS and easy.
 # In the boilerpalte make files dont do any includes, because you will create multi permutations of possibilities.
 
-
-# =============================================================================
-# includes
-# =============================================================================
+# ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+# Includes
+# ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
 BOILERPLATE_FSPATH=../boilerplate
 
 include $(BOILERPLATE_FSPATH)/core/help.mk
@@ -12,32 +11,31 @@ include $(BOILERPLATE_FSPATH)/core/gitr.mk
 include $(BOILERPLATE_FSPATH)/core/go.mk
 include $(BOILERPLATE_FSPATH)/core/tool.mk
 
-# =============================================================================
-# Overrides
-# =============================================================================
-ASSET_DIR_TARGET_FSPATH = $(PWD)/assets
-ASSET_FILES_FSPATHS = \
+# ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+# Overrides & Variables
+# ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+COPY_TARGET_FSPATH = $(PWD)/assets
+COPY_SRCDIR_FSPATH = \
 	$(PWD)/dummy/builds \
 	$(PWD)/lang/builds \
 	$(PWD)/protofig/protoc-gen-configdef/builds \
 	$(PWD)/protofig/builds
-ASSET_SOURCE_FILES = \
-	$(foreach D,$(ASSET_FILES_FSPATHS), \
+COPY_SRC_FILES := \
+	$(foreach D,$(COPY_SRCDIR_FSPATH), \
 		$(wildcard $(D)/*))
-ASSET_TARGET_FILES = \
-	$(foreach D,$(ASSET_FILES_FSPATHS), \
-		$(patsubst $(D)/%,$(ASSET_DIR_TARGET_FSPATH)/%,$(wildcard $(D)/*)))
 
 .PHONY: help
 
 ## Print all settings
 this-print:
 	$(MAKE) go-print
-	$(MAKE) copy-print
+	@echo COPY_SRC_FILES: $(COPY_SRC_FILES)
+	@echo COPY_TARGET_FILES: $(COPY_TARGET_FILES)
 
-# =============================================================================
-### BUILD Phase
-# =============================================================================
+# ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+# Build Phase
+# ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
 ## Build all tools for all platform (CI)
 this-build-all:
 
@@ -90,9 +88,11 @@ this-build:
 	# -- PLUS ALL OTHER TOOLS !!
 
 	@echo -- TOOLS - BUILD ALL: finish --
-# =============================================================================
-### TEST Phase
-# =============================================================================
+
+# ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+# Test Phase
+# ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+
 ## Test all tools
 this-test:
 	@echo -- TOOLS - TEST ALL: start --
@@ -111,24 +111,26 @@ this-test:
 	# -- PLUS ALL OTHER TOOLS !!
 
 	@echo -- TOOLS - TEST ALL: finish --
-# =============================================================================
-### Release Phase
-# =============================================================================
+
+# ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+# Release Phase
+# ⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
 
 ## Copy all binaries to assets path
-this-assets-release: this-build-all this-assets-clean
-	mkdir $(ASSET_DIR_TARGET_FSPATH)
-	$(MAKE) this-copy-all
-	$(MAKE) this-gzip-all
+this-assets-release: this-build-all this-clean-assets this-create-assets-dir
+	${MAKE} this-copy-all
+	${MAKE} this-compress-all
 
-this-assets-clean:
-	rm -rf $(ASSET_DIR_TARGET_FSPATH)
+this-clean-assets:
+	rm -rf $(COPY_TARGET_FSPATH)
 
-this-copy-all: $(ASSET_TARGET_FILES)
+this-create-assets-dir:
+	mkdir -p $(COPY_TARGET_FSPATH)
 
-this-gzip-all:
-	gzip $(wildcard $(ASSET_DIR_TARGET_FSPATH)/*)
+this-copy-all:
+	for fl in  $(COPY_SRC_FILES); \
+		do cp -f $$fl $(COPY_TARGET_FSPATH)/$$(basename $$fl); \
+	done
 
-$(ASSET_DIR_TARGET_FSPATH)/%: $(ASSET_SOURCE_FILES)
-	cp -f $< $@
-
+this-compress-all:
+	gzip $(wildcard $(COPY_TARGET_FSPATH)/*)
